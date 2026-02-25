@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme inline {
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
+
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-secondary-light: var(--secondary-light);
+  --color-secondary-lighter: var(--secondary-lighter);
+  --color-accent: var(--accent);
+  --color-bg-dark: var(--bg-dark);
+  --color-bg-light: var(--bg-light);
+  --color-text-light: var(--text-light);
+  --color-text-dark: var(--text-dark);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  /* Refined Color Palette for smoother transitions and richer aesthetic */
+  --primary: #2A1610;
+  /* Deep cocoa brown */
+  --secondary: #C19A5B;
+  /* Refined Gold */
+  --secondary-light: #E8CBA5;
+  /* Soft beige gold */
+  --secondary-lighter: #F3E8D8;
+  /* Creamy gold */
+  --accent: #F2EAE1;
+  /* Warm creamy beige */
+
+  --bg-dark: #382315;
+  /* Softened dark chocolate background */
+  --bg-light: #F2EAE1;
+  /* Matching warm cream for light sections */
+
+  --text-light: #FDFBFA;
+  /* Slightly warmer off-white */
+  --text-dark: #2A1610;
+  /* Matching primary deeply */
+
+  --background: var(--bg-light);
+  --foreground: var(--text-dark);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--bg-dark);
+    --foreground: var(--text-light);
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif), serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
