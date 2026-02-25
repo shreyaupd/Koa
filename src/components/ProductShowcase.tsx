@@ -13,6 +13,7 @@ const products = [
         note: "Notes of wild cherry & toasted oak",
         price: "$24",
         bgClass: "bg-[#3D2112]",
+        image: "/images/product-deep-velvet.png"
     },
     {
         name: "Golden Truffle Collection",
@@ -20,6 +21,7 @@ const products = [
         note: "Edible gold, salted caramel & hazelnut",
         price: "$48",
         bgClass: "bg-[#5C3D1E]",
+        image: "/images/product-golden-truffle.png"
     },
     {
         name: "Cacao Noir",
@@ -27,6 +29,7 @@ const products = [
         note: "Intensely pure, deeply complex",
         price: "$28",
         bgClass: "bg-[#2C180C]",
+        image: "/images/product-cacao-noir.png"
     },
 ];
 
@@ -87,19 +90,19 @@ export default function ProductShowcase() {
                             key={i}
                             className="product-card group cursor-pointer flex flex-col"
                         >
-                            {/* Image placeholder */}
+                            {/* Product Image */}
                             <div
-                                className={`relative ${p.bgClass} aspect-[3/4] w-full overflow-hidden flex items-center justify-center transition-transform duration-700 ease-in-out group-hover:scale-[0.97]`}
-                                aria-label={`${p.name} product image placeholder`}
+                                className={`relative ${p.bgClass} aspect-[3/4] w-full overflow-hidden transition-transform duration-700 ease-in-out group-hover:scale-[0.97]`}
+                                aria-label={p.name}
                             >
+                                <img
+                                    src={p.image}
+                                    alt={p.name}
+                                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+                                />
                                 {/* Shimmer line */}
                                 <div className="absolute inset-x-0 top-0 h-px bg-secondary/30 group-hover:bg-secondary/60 transition-colors duration-500" />
                                 <div className="absolute inset-x-0 bottom-0 h-px bg-secondary/20" />
-
-                                <div className="border border-secondary/25 group-hover:border-secondary/60 transition-colors duration-500 p-8 flex flex-col items-center gap-2 text-center">
-                                    <span className="text-secondary/60 uppercase tracking-[0.3em] text-[10px] font-sans">Koa</span>
-                                    <div className="w-8 h-px bg-secondary/40" />
-                                </div>
                             </div>
 
                             {/* Info */}

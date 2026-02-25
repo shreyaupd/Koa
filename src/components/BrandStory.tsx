@@ -66,18 +66,17 @@ export default function BrandStory() {
                     </p>
                 </div>
 
-                {/* Image placeholder */}
+                {/* Brand Story Image */}
                 <div
-                    className="story-img relative aspect-[3/4] w-full bg-accent overflow-hidden flex items-end justify-center"
-                    aria-label="Brand story image placeholder"
+                    className="story-img relative aspect-[3/4] w-full overflow-hidden"
+                    aria-label="Artisan chocolate being handcrafted"
                 >
-                    <div className="absolute inset-0 bg-primary/10" />
-                    <div className="relative z-10 mb-8 flex flex-col items-center gap-2 opacity-40">
-                        <div className="w-12 h-px bg-secondary" />
-                        <span className="text-primary uppercase tracking-[0.25em] text-xs font-sans">
-                            Image
-                        </span>
-                    </div>
+                    <img
+                        src="/images/brand-story.png"
+                        alt="Artisan chocolate craftsmanship"
+                        className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                    />
+                    <div className="absolute inset-0 bg-primary/10 mix-blend-multiply pointer-events-none" />
                 </div>
             </div>
         </section>
