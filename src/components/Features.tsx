@@ -30,17 +30,42 @@ export default function Features() {
 
     useEffect(() => {
         const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReduced) return;
 
         const ctx = gsap.context(() => {
-            gsap.from(".pillar-card", {
-                scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
-                y: 36,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.15,
-                ease: "power2.out",
-            });
+            if (!prefersReduced) {
+                gsap.from(".pillar-card", {
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 1.2,
+                    stagger: 0.15,
+                    ease: "power3.out",
+                });
+
+                // Subtle icon floating animation
+                gsap.to(".pillar-card svg", {
+                    y: -5,
+                    duration: 2,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    stagger: {
+                        each: 0.3,
+                        from: "random"
+                    }
+                });
+            } else {
+                gsap.from(".pillar-card", {
+                    scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.1,
+                });
+            }
         }, sectionRef);
 
         return () => ctx.revert();

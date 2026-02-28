@@ -67,6 +67,11 @@ h6 {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+    transform-style: preserve-3d;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
   }
 }
 

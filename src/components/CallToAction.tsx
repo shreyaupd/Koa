@@ -11,17 +11,39 @@ export default function CallToAction() {
 
     useEffect(() => {
         const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReduced) return;
 
         const ctx = gsap.context(() => {
-            gsap.from(".cta-content > *", {
-                scrollTrigger: { trigger: ctaRef.current, start: "top 80%" },
-                y: 30,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.15,
-                ease: "power2.out",
-            });
+            if (!prefersReduced) {
+                gsap.from(".cta-content > *", {
+                    scrollTrigger: {
+                        trigger: ctaRef.current,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 30,
+                    opacity: 0,
+                    duration: 1.2,
+                    stagger: 0.15,
+                    ease: "power3.out",
+                });
+
+                // Subtle radial glow pulse
+                gsap.to(".cta-glow", {
+                    scale: 1.2,
+                    opacity: 0.15,
+                    duration: 4,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            } else {
+                gsap.from(".cta-content > *", {
+                    scrollTrigger: { trigger: ctaRef.current, start: "top 85%" },
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.1,
+                });
+            }
         }, ctaRef);
 
         return () => ctx.revert();
@@ -37,7 +59,7 @@ export default function CallToAction() {
             {/* Subtle radial glow */}
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <div
-                    className="w-[600px] h-[600px] rounded-full opacity-10"
+                    className="cta-glow w-[600px] h-[600px] rounded-full opacity-10"
                     style={{ background: "radial-gradient(circle, var(--secondary) 0%, transparent 70%)" }}
                 />
             </div>

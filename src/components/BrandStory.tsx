@@ -11,24 +11,43 @@ export default function BrandStory() {
 
     useEffect(() => {
         const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReduced) return;
 
         const ctx = gsap.context(() => {
-            gsap.from(".story-text > *", {
-                scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
-                y: 36,
-                opacity: 0,
-                duration: 1.1,
-                stagger: 0.18,
-                ease: "power2.out",
-            });
-            gsap.from(".story-img", {
-                scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
-                y: 56,
-                opacity: 0,
-                duration: 1.4,
-                ease: "power2.out",
-            });
+            if (!prefersReduced) {
+                // Parallax for the story image
+                gsap.to(".story-img img", {
+                    yPercent: 15,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".story-img",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+
+                // Sophisticated entrance for text
+                gsap.from(".story-text > *", {
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 1.2,
+                    stagger: 0.15,
+                    ease: "power3.out",
+                });
+            } else {
+                // Simple fade for reduced motion users
+                gsap.from(".story-text > *", {
+                    scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.1,
+                });
+            }
         }, sectionRef);
 
         return () => ctx.revert();
@@ -68,15 +87,15 @@ export default function BrandStory() {
 
                 {/* Brand Story Image */}
                 <div
-                    className="story-img relative aspect-[3/4] w-full overflow-hidden"
+                    className="story-img relative h-[120vh] w-full overflow-hidden"
                     aria-label="Artisan chocolate being handcrafted"
                 >
                     <img
                         src="/images/brand-story.png"
                         alt="Artisan chocolate craftsmanship"
-                        className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                        className="w-full h-full object-cover transition-all duration-700"
                     />
-                    <div className="absolute inset-0 bg-primary/10 mix-blend-multiply pointer-events-none" />
+
                 </div>
             </div>
         </section>

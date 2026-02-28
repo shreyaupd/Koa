@@ -38,25 +38,56 @@ export default function ProductShowcase() {
 
     useEffect(() => {
         const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReduced) return;
 
         const ctx = gsap.context(() => {
-            gsap.from(".showcase-header > *", {
-                scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-                y: 20,
-                opacity: 0,
-                duration: 0.9,
-                stagger: 0.12,
-                ease: "power2.out",
-            });
-            gsap.from(".product-card", {
-                scrollTrigger: { trigger: ".products-grid", start: "top 78%" },
-                y: 48,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.14,
-                ease: "power2.out",
-            });
+            if (!prefersReduced) {
+                gsap.from(".showcase-header > *", {
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 30,
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.15,
+                    ease: "power3.out",
+                });
+
+                gsap.from(".product-card", {
+                    scrollTrigger: {
+                        trigger: ".products-grid",
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 60,
+                    opacity: 0,
+                    duration: 1.2,
+                    stagger: 0.18,
+                    ease: "power4.out",
+                });
+
+                // Subtle parallax for product images
+                gsap.utils.toArray<HTMLElement>(".product-card img").forEach((img) => {
+                    gsap.to(img, {
+                        yPercent: 10,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: img,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: true,
+                        },
+                    });
+                });
+            } else {
+                gsap.from(".product-card", {
+                    scrollTrigger: { trigger: ".products-grid", start: "top 85%" },
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.12,
+                });
+            }
         }, sectionRef);
 
         return () => ctx.revert();
